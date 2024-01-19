@@ -23,26 +23,23 @@ class Sequence {
    * @param {Array} list The list of elements for this sequence in an Array
    */
   constructor(list) {
-      // deep copies the array
+      // deep copies the array using a for loop
       this.sequence = [];
-      for (let i = 0; i < list.length; i++) {
-          this.sequence.push(list[i]);
+      for (let i = 0; i < list.length; i++) { //starting with index 0, it will iterate through the array 
+          this.sequence.push(list[i]); // and push the contents onto a the internal class variable sequence
       }
 
       // Set the internal index variable to an initial value
-      this.index = 0; // sets starting position of index variable to 0
+      this.index = 0; // sets starting position of internal class index variable to 0
   }
-  set index(i) {
-    this.index = i;
-
-  }
+  
   /**
    * return the current element in the sequence and advance the sequence index
    */
 
   next() {
       const currentElement = this.sequence[this.index]; // get the current element in the sequence
-      this.index = (this.index + 1) % this.sequence.length; // advance the sequence index and wrap around if necessary
+      this.index = (this.index + 1) % this.sequence.length; // advance the sequence index and then wraps around when necessary
       return currentElement; // return the current element
   }
 }
@@ -52,8 +49,8 @@ class Sequence {
 // --------- STEP 5 ----------------------------
 // create an instance of the sequence class
 
-let sequenceArray = ['0', '0', '1', '1', '.', '.', '.']
-let sequence = new Sequence(sequenceArray);
+let sequenceArray = ['0', '0', '1', '1', '.', '.', '.'] //creates an array sequenceArray with values '0 0 1 1 . . .'
+let sequence = new Sequence(sequenceArray); //creates a new instance of a sequence object using sequenceArray as the argument
 
 
 
@@ -62,6 +59,7 @@ let sequence = new Sequence(sequenceArray);
 //
 // colours for each sequence element
 const lookup = 
+// maps characters to HSLA colour values 
 {
     '0': `hsla(348, 100%, 50%, 1)`,
     '1': `hsla(34, 100%, 66%, 1)`,
@@ -99,18 +97,6 @@ const lookup =
 //           }
 //         }
 //       }
-    // calculate the width of an element so that all of them fit across the screen
-    // calculate the height of an element using the same scaling factor as the width
-    // store the initial horizontal and vertical drawing positions (x and y)
-    // maybe set a colour for the element? Or a particular font?
-    // for each element in this array:
-    //  draw this element as text (see p5js's text() function) in the current x,y position
-    //  update the current horizontal drawing position
-
-    // OPTIONAL: 
-    // Repeat the above loop to draw multiple rows, filling the screen entirely.
-    // Hint: For each loop, you will have to reset the hoziontal position and also modify the vertical one.
-
 // --------- STEP 6 ----------------------------
 
 /**
@@ -141,20 +127,13 @@ function drawSequence(sequence, size) {
 }
 
 
-/**
- * SETUP --------------------------------------------------
- */
+
 window.setup = function () {
     createCanvas(600, 600).parent(sketchHolder);
+
 }
-
-
-
-/**
- * DRAW --------------------------------------------------
- */
 window.draw = function() {
-    drawSequence(sequence, 20);
+    drawSequence(sequence, 20); 
     
     
 }
