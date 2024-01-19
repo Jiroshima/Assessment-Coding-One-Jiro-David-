@@ -99,7 +99,7 @@ window.setup = function () {
 }
 
 window.draw = function() {
-    drawSequence(sequence, 30); //draws the sequence according to the drawsequence function
+    drawSequence(sequence, 100); //draws the sequence according to the drawsequence function
 }
   
 
