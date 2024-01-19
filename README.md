@@ -2,4 +2,4 @@
 ASCII Coding Jiro David 
 
 
-paste everything into a new github repo
+copy all the files into a new github repository
