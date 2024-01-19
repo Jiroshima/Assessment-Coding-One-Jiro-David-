@@ -1,58 +1,18 @@
 /**
  * Final exam part 1: sequences
  */
-import './lib/p5.min.js'
-
+import Sequence from './sequence.js' 
+import './lib/p5.min.js';
 // this is later used to organise our sketch on the HTML page by putting it in 
 // the div with the CSS id 'sketch'
 const sketchHolder = document.getElementById('sketch');
 
-/**
- * A class to hold a repeating sequence of anything: numbers, characters, etc.
- */
-
-
-
-class Sequence {
-  /* Internal variables for this class */
-  sequence; // Array: an array holding the sequence
-  index; // Integer: current index in the sequence, from 0 to the length of the sequence - 1
   
-  /**
-   * Constructor: create a sequence from an array
-   * @param {Array} list The list of elements for this sequence in an Array
-   */
-  constructor(list) {
-      // deep copies the array using a for loop
-      this.sequence = [];
-      for (let i = 0; i < list.length; i++) { //starting with index 0, it will iterate through the array 
-          this.sequence.push(list[i]); // and push the contents onto a the internal class variable sequence
-      }
-
-      // Set the internal index variable to an initial value
-      this.index = 0; // sets starting position of internal class index variable to 0
-  }
-  
-  /**
-   * return the current element in the sequence and advance the sequence index
-   */
-
-  next() {
-      const currentElement = this.sequence[this.index]; // get the current element in the sequence
-      this.index = (this.index + 1) % this.sequence.length; // advance the sequence index and then wraps around when necessary
-      return currentElement; // return the current element
-  }
-}
-
-
-
 // --------- STEP 5 ----------------------------
 // create an instance of the sequence class
 
-let sequenceArray = ['0', '0', '1', '1', '.', '.', '.'] //creates an array sequenceArray with values '0 0 1 1 . . .'
+let sequenceArray = ['*', '*', '@', '@', '+', '+', '+'] //creates an array sequenceArray with values '0 0 1 1 . . .'
 let sequence = new Sequence(sequenceArray); //creates a new instance of a sequence object using sequenceArray as the argument
-
-
 
 
 // --------- STEP 4 ----------------------------
@@ -65,7 +25,10 @@ const lookup =
     '1': `hsla(34, 100%, 66%, 1)`,
     '.': `hsla(125, 100%, 41%, 1)`,
     ' ': `hsla(90, 100%, 10%,1)`,
-    'A': `hsla(124, 100%, 41%, 1)`
+    'A': `hsla(124, 100%, 41%, 1)`,
+    '*': `hsla(294, 95%, 51%, 0.74)`,  // pink
+    '@': `hsla(273, 100%, 50%, 1)`, // purple
+    '+': `hsla(0, 100%, 50%, 1)`    // Red
 
 }   
 
@@ -109,34 +72,38 @@ function drawSequence(sequence, size) {
   const gridHeight = size;
   const cellWidth = 600 / size; // Scale the cellWidth based on the specified size
   const cellHeight = 600 / size; // Scale the cellHeight based on the specified size
+  clear()
 
   for (let row = 0; row < gridHeight; row++) {
-      for (let col = 0; col < gridWidth; col++) {
+      for (let col = 0; col < gridWidth; col++) { //Uses for loop to iterate through the grid
           const character = sequence.next(); // Use the next() method of the Sequence class
-          const colour = lookup[character];
+          sequence.shuffle();
+          const colour = lookup[character]; //uses lookup to check for character colour 
 
-          const x = col * cellWidth;
-          const y = row * cellHeight;
+          const x = col * cellWidth; // sets x-coordinate
+          const y = row * cellHeight; // sets y-coordinate
 
-          fill(colour);
-          textSize(cellHeight);
-          text(character, x, y + cellHeight);
+          fill(colour); //fills the text with colour chosen
+          textSize(cellHeight); //adjusts textsize according to cell height
+          text(character, x, y + cellHeight); //places the character to a specific x,y coordinate in the grid
+          
       }
   }
-  sequence.index = 0
+  sequence.index = 0 //sets sequence index to 0 after for loop so it doesnt repeat and overlap
+  
 }
 
 
 
 window.setup = function () {
     createCanvas(600, 600).parent(sketchHolder);
+    frameRate(10);
+}
 
-}
 window.draw = function() {
-    drawSequence(sequence, 20); 
-    
-    
+    drawSequence(sequence, 30); //draws the sequence according to the drawsequence function
 }
+  
 
     
 
