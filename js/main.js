@@ -70,14 +70,14 @@ const lookup =
 function drawSequence(sequence, size) {
   const gridWidth = size;
   const gridHeight = size;
-  const cellWidth = 600 / size; // Scale the cellWidth based on the specified size
-  const cellHeight = 600 / size; // Scale the cellHeight based on the specified size
-  clear()
+  const cellWidth = 600 / size; // scales the cellWidth based on the specified size
+  const cellHeight = 600 / size; // scales the cellHeight based on the specified size
+  background(0, 0, 0) //creates a black background
 
   for (let row = 0; row < gridHeight; row++) {
-      for (let col = 0; col < gridWidth; col++) { //Uses for loop to iterate through the grid
-          const character = sequence.next(); // Use the next() method of the Sequence class
-          sequence.shuffle();
+      for (let col = 0; col < gridWidth; col++) { // uses for loop to iterate through the grid
+          const character = sequence.next(); // use the next() method of the Sequence class
+          sequence.shuffle(); //shuffles the sequence
           const colour = lookup[character]; //uses lookup to check for character colour 
 
           const x = col * cellWidth; // sets x-coordinate
@@ -93,11 +93,9 @@ function drawSequence(sequence, size) {
   
 }
 
-
-
 window.setup = function () {
     createCanvas(600, 600).parent(sketchHolder);
-    frameRate(10);
+    frameRate(10); // sets the framerate to 10fps so that the pattern refreshes slow 
 }
 
 window.draw = function() {
